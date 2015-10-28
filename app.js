@@ -50,9 +50,25 @@ app.use(function(req, res, next){
   //proceed to the next middleware component
   console.log(req.path);
   //not logged in and not trying to logged in redirect to login
+
+  function isLoggedIn(req) {
+  	if (req.session.user) {
+  		return true;
+  	}
+  	return false;
+  }
+
+  function isAllowedWithoutLogin(path) {
+    return path == '/login' || path == '/signUp';
+  }
+
+  if (!isLoggedIn(req) && !isAllowedWithoutLogin(req.path)) {
+  	return res.redirect('/login');
+  }
+  /*
   if(!req.session.user && req.path !== "/login"){
   	return res.redirect('/login')
-  }
+  } */
 
   next();
 });
@@ -84,7 +100,8 @@ app.post('/signUp', function (req, res){
 })
 
 app.get('/login', function (req, res) {
-	var html = "<h1>Login</h1><form action='/login' method='post'>Enter Username<input type='text' name='username'>Enter password<input type='password' name='password' ><button type='submit' name='login label='login'>login</button></form>"
+	var html = "<h1>Login</h1><form action='/login' method='post'>Enter Username<input type='text' name='username'>Enter password<input type='password' name='password' ><button type='submit' name='login label='login'>login</button></form>"+
+	"<a href=/signUp>signUp</a>"
 	 	res.send(html);
 });
 
