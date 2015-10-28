@@ -1,0 +1,36 @@
+<h1>Purchases</h1>
+<table class="table">
+ <tr>
+  <td> 
+   name
+  </td>
+  <td> 
+   email
+  </td>
+  <td> 
+   password
+  </td>
+  <td> 
+   role
+  </td>
+ </tr>
+{{#products}}
+ <tr>
+  <td>
+   {{name}}
+  </td>
+   <td>
+   {{email}}
+  </td>
+   <td>
+   {{password}}
+  </td>
+   <td>
+   {{role}}
+  </td>
+  <td>
+   <a href="/user/{{id}}">user</a>
+   </td>
+ </tr>
+{{/products}}
+</table>
